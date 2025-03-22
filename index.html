@@ -104,27 +104,28 @@
     </header>
 
     <main>
-        <section class="form-section">
-            <h2>Schedule Your Pickup</h2>
-            <form id="pickupForm">
-                <label for="pickupName">Name:</label>
-                <input type="text" id="pickupName" name="pickupName" required>
+<section class="form-section">
+    <h2>Schedule Your Pickup</h2>
+    <form id="pickupForm" method="POST" action="https://delivery-backend-2ox1.onrender.com/schedulePickup">
+        <label for="pickupName">Name:</label>
+        <input type="text" id="pickupName" name="pickupName" required>
 
-                <label for="pickupAddress">Pickup Address:</label>
-                <input type="text" id="pickupAddress" name="pickupAddress" required>
+        <label for="pickupAddress">Pickup Address:</label>
+        <input type="text" id="pickupAddress" name="pickupAddress" required>
 
-                <label for="deliveryAddress">Delivery Address:</label>
-                <input type="text" id="deliveryAddress" name="deliveryAddress" required>
+        <label for="deliveryAddress">Delivery Address:</label>
+        <input type="text" id="deliveryAddress" name="deliveryAddress" required>
 
-                <label for="contactNumber">Contact Number:</label>
-                <input type="tel" id="contactNumber" name="contactNumber" required>
+        <label for="contactNumber">Contact Number:</label>
+        <input type="tel" id="contactNumber" name="contactNumber" required>
 
-                <label for="packageDetails">Package Details:</label>
-                <textarea id="packageDetails" name="packageDetails" required></textarea>
+        <label for="packageDetails">Package Details:</label>
+        <textarea id="packageDetails" name="packageDetails" required></textarea>
 
-                <button type="submit">Schedule Pickup</button>
-            </form>
-        </section>
+        <button type="submit">Schedule Pickup</button>
+    </form>
+</section>
+
 
         <section class="response-section">
             <h2 id="responseTitle">Confirmation</h2>
