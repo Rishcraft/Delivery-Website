@@ -154,13 +154,12 @@
                 packageDetails: packageDetails
             };
 
-            fetch('https://delivery-backend-2ox1.onrender.com', {
+            fetch('https://delivery-backend-2ox1.onrender.com/schedulePickup', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(requestData)
             })
+
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById("responseTitle").textContent = "Pickup Scheduled!";
