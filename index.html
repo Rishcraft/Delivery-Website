@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courier Pickup and Delivery Service</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        header p {
+            margin: 5px 0;
+        }
+
+        /* Form Styles */
+        .form-section {
+            background-color: white;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #34495e;
+        }
+
+        /* Response Section Styles */
+        .response-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .response-section h2 {
+            color: #27ae60;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1>QuickCourier</h1>
+            <p>Your fast and reliable delivery service</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h2>Schedule Your Pickup</h2>
+            <form id="pickupForm">
+                <label for="pickupName">Name:</label>
+                <input type="text" id="pickupName" name="pickupName" required>
+
+                <label for="pickupAddress">Pickup Address:</label>
+                <input type="text" id="pickupAddress" name="pickupAddress" required>
+
+                <label for="deliveryAddress">Delivery Address:</label>
+                <input type="text" id="deliveryAddress" name="deliveryAddress" required>
+
+                <label for="contactNumber">Contact Number:</label>
+                <input type="tel" id="contactNumber" name="contactNumber" required>
+
+                <label for="packageDetails">Package Details:</label>
+                <textarea id="packageDetails" name="packageDetails" required></textarea>
+
+                <button type="submit">Schedule Pickup</button>
+            </form>
+        </section>
+
+        <section class="response-section">
+            <h2 id="responseTitle">Confirmation</h2>
+            <p id="responseMessage"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 QuickCourier. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById("pickupForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("pickupName").value;
+            const pickupAddress = document.getElementById("pickupAddress").value;
+            const deliveryAddress = document.getElementById("deliveryAddress").value;
+            const contactNumber = document.getElementById("contactNumber").value;
+            const packageDetails = document.getElementById("packageDetails").value;
+
+            const requestData = {
+                name: name,
+                pickupAddress: pickupAddress,
+                deliveryAddress: deliveryAddress,
+                contactNumber: contactNumber,
+                packageDetails: packageDetails
+            };
+
+            fetch('http://localhost:3000/schedulePickup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("responseTitle").textContent = "Pickup Scheduled!";
+                    document.getElementById("responseMessage").innerHTML = `
+            Thank you, ${name}! Your pickup request has been successfully scheduled.
+            <br><br>
+            <strong>Pickup Address:</strong> ${pickupAddress}
+            <br>
+            <strong>Delivery Address:</strong> ${deliveryAddress}
+            <br>
+            <strong>Contact Number:</strong> ${contactNumber}
+            <br>
+            <strong>Package Details:</strong> ${packageDetails}
+        `;
+                    document.getElementById("pickupForm").reset();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById("responseTitle").textContent = "Error!";
+                    document.getElementById("responseMessage").textContent = "An error occurred while scheduling your pickup.";
+                });
+        });
+    </script>
+</body>
+
+</html>
